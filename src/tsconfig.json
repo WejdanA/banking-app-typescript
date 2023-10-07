@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2016",
+    "rootDir": "./",
+    "outDir": "",
+    "outFile": "src/bank.js",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
