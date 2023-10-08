@@ -1,13 +1,13 @@
 // bank class
 class Bank {
-  name: String;
+  name: string;
   branches: Branch[];
   constructor(name: string) {
     this.name = name;
     this.branches = [];
   }
 
-  addBranch(branch: Branch): Boolean {
+  addBranch(branch: Branch): boolean {
     if (this.checkBranch(branch)) {
       console.log(`this baranch "${branch.getName()}" already added `);
       return false;
@@ -17,7 +17,7 @@ class Bank {
     return true;
   }
 
-  addCustomer(branch: Branch, customer: Customer): Boolean {
+  addCustomer(branch: Branch, customer: Customer): boolean {
     if (this.checkBranch(branch)) {
       return branch.addCustomer(customer);
     }
@@ -29,7 +29,7 @@ class Bank {
     branch: Branch,
     customerId: number,
     amount: number
-  ): Boolean {
+  ): boolean {
     if (this.checkBranch(branch)) {
       return branch.addCustomerTransaction(customerId, amount);
     }
@@ -37,7 +37,7 @@ class Bank {
     return false;
   }
 
-  findBranchByName(branchName: String) {
+  findBranchByName(branchName: string) {
     let branch = this.branches.filter(
       (branch) => branch.getName() == branchName
     );
@@ -48,14 +48,14 @@ class Bank {
     return branch;
   }
 
-  checkBranch(branch: Branch): Boolean {
+  checkBranch(branch: Branch): boolean {
     if (this.branches.includes(branch)) {
       return true;
     }
     return false;
   }
 
-  listCustomers(branch: Branch, includeTransactions: Boolean): void {
+  listCustomers(branch: Branch, includeTransactions: boolean): void {
     console.log(`_____${this.name} bank ${branch.getName()} list_____`);
     if (this.checkBranch(branch)) {
       console.log(branch.getName());
@@ -83,15 +83,15 @@ class Bank {
 }
 // branch class
 class Branch {
-  name: String;
+  name: string;
   customers: Customer[];
 
-  constructor(name: String) {
+  constructor(name: string) {
     this.name = name;
     this.customers = [];
   }
 
-  getName(): String {
+  getName(): string {
     return this.name;
   }
 
@@ -99,7 +99,7 @@ class Branch {
     return this.customers;
   }
 
-  addCustomer(customer: Customer): Boolean {
+  addCustomer(customer: Customer): boolean {
     let condition = this.getCustomers().find(
       (cust) => cust.getId() == customer.getId()
     );
@@ -118,7 +118,7 @@ class Branch {
     return false;
   }
 
-  addCustomerTransaction(customerId: number, amount: number): Boolean {
+  addCustomerTransaction(customerId: number, amount: number): boolean {
     let index = this.getCustomers().findIndex(
       (customer) => customer.getId() == customerId
     );
@@ -134,16 +134,16 @@ class Branch {
 
 // customr class
 class Customer {
-  name: String;
+  name: string;
   id: number;
   transactions: Transaction[];
-  constructor(name: String, id: number) {
+  constructor(name: string, id: number) {
     this.name = name;
     this.id = id;
     this.transactions = [];
   }
 
-  getName(): String {
+  getName(): string {
     return this.name;
   }
 
@@ -162,7 +162,7 @@ class Customer {
     return balance;
   }
 
-  addTransactions(amount: number): Boolean {
+  addTransactions(amount: number): boolean {
     if (this.getBalance() + amount >= 0) {
       let date = new Date();
       this.getTransactions().push({ amount, date });
