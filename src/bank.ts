@@ -1,7 +1,7 @@
 // bank class
 class Bank {
-  name: string;
-  branches: Branch[];
+  private name: string;
+  private branches: Branch[];
   constructor(name: string) {
     this.name = name;
     this.branches = [];
@@ -33,7 +33,7 @@ class Bank {
     if (this.checkBranch(branch)) {
       return branch.addCustomerTransaction(customerId, amount);
     }
-    console.log(` there are no branch with name ${branch.name}`);
+    console.log(` there are no branch with name ${branch.getName()}`);
     return false;
   }
 
@@ -70,7 +70,7 @@ class Bank {
           console.log(`transiactions:`);
           for (let transaction of transactions) {
             console.log(
-              `amount:${transaction.amount} date:${transaction.date}`
+              `amount:${transaction["amount"]} date:${transaction["date"]}`
             );
           }
           console.log("____________");
@@ -83,8 +83,8 @@ class Bank {
 }
 // branch class
 class Branch {
-  name: string;
-  customers: Customer[];
+  private name: string;
+  private customers: Customer[];
 
   constructor(name: string) {
     this.name = name;
@@ -134,8 +134,8 @@ class Branch {
 
 // customr class
 class Customer {
-  name: string;
-  id: number;
+  private name: string;
+  private id: number;
   transactions: Transaction[];
   constructor(name: string, id: number) {
     this.name = name;
@@ -156,7 +156,7 @@ class Customer {
   }
   getBalance(): number {
     let balance = this.getTransactions().reduce((balance, current) => {
-      return balance + current.amount;
+      return balance + current["amount"]; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }, 0);
 
     return balance;
@@ -165,7 +165,8 @@ class Customer {
   addTransactions(amount: number): boolean {
     if (this.getBalance() + amount >= 0) {
       let date = new Date();
-      this.getTransactions().push({ amount, date });
+      let newTransaction = new Transaction(amount, date);
+      this.getTransactions().push(newTransaction);
       console.log(
         ` the transaction was processed successfully \n your current balance is ${this.getBalance()}`
       );
@@ -180,8 +181,8 @@ class Customer {
 
 // transation class
 class Transaction {
-  amount: number;
-  date: Date;
+  private amount: number;
+  private date: Date;
   constructor(amount: number, date: Date) {
     this.amount = amount;
     this.date = date;
